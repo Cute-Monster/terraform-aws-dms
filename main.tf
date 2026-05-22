@@ -266,6 +266,7 @@ resource "aws_dms_endpoint" "this" {
     for_each = length(lookup(each.value, "postgres_settings", [])) > 0 ? [each.value.postgres_settings] : []
     content {
       authentication_method        = try(postgres_settings.value.authentication_method, null)
+      service_access_role_arn      = try(postgres_settings.value.service_access_role_arn, null)
       after_connect_script         = try(postgres_settings.value.after_connect_script, null)
       babelfish_database_name      = try(postgres_settings.value.babelfish_database_name, null)
       capture_ddls                 = try(postgres_settings.value.capture_ddls, null)
